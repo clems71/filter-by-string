@@ -11,7 +11,7 @@ const collection = [
   { id: 125, title: 'clean whiteboard', draft: false }
 ]
 
-const result = searchByString('draft is false and title is wash*')
+const result = searchByString('draft is false and title is wash*', collection)
 
 // result is [{ id: 123, title: 'wash dishes', draft: false }]
 ```
