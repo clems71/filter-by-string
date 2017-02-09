@@ -1,5 +1,5 @@
 {
-  "name": "qfilter",
+  "name": "filter-by-string",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,7 +9,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "glob-to-regexp": "^0.3.0",
     "nearley": "^2.7.11",
