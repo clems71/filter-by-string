@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "precommit": "lint-staged",
     "install": "nearleyc grammar.ne -o grammar.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,7 +13,18 @@
   "license": "MIT",
   "dependencies": {
     "glob-to-regexp": "^0.3.0",
-    "nearley": "^2.7.11",
-    "ramda": "^0.23.0"
+    "lodash": "^4.17.4",
+    "nearley": "^2.7.11"
+  },
+  "devDependencies": {
+    "husky": "^0.13.3",
+    "lint-staged": "^3.4.0",
+    "prettier": "^0.22.0"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write --single-quote",
+      "git add"
+    ]
   }
 }

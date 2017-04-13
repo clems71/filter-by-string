@@ -1,43 +1,44 @@
-const nearley = require('nearley')
-const grammar = require('./grammar')
-const R = require('ramda')
+const nearley = require('nearley');
+const grammar = require('./grammar');
+const _ = require('lodash');
 
-function _eq (pattern, str) {
-  if (pattern instanceof RegExp) return R.test(pattern, str)
-  return pattern === str
+function _eq(pattern, str) {
+  if (pattern instanceof RegExp) return pattern.test(str);
+  return pattern === str;
 }
 
-function _in (patterns, str) {
-  for (const pattern of patterns) if (_eq(pattern, str)) return true
-  return false
+function _in(patterns, str) {
+  for (const pattern of patterns)
+    if (_eq(pattern, str)) return true;
+  return false;
 }
 
-function _makeFilterFunc (str) {
-  if (!str) return R.T
+function _makeFilterFunc(str) {
+  if (!str) return _.stubTrue;
 
-  const parser = new nearley.Parser(grammar.ParserRules, grammar.ParserStart)
-  parser.feed(str)
+  const parser = new nearley.Parser(grammar.ParserRules, grammar.ParserStart);
+  parser.feed(str);
 
-  return function (x) {
+  return function(x) {
     for (const condition of parser.results[0]) {
-      const xVal = R.prop(condition.key, x)
-      const xValStr = `${xVal}`
+      const xVal = _.get(x, condition.key);
+      const xValStr = `${xVal}`;
 
       switch (condition.type) {
         case 'eq':
-          if (!_eq(condition.val, xValStr)) return false
-          break
+          if (!_eq(condition.val, xValStr)) return false;
+          break;
 
         case 'in':
-          if (!_in(condition.val, xValStr)) return false
-          break
+          if (!_in(condition.val, xValStr)) return false;
+          break;
       }
     }
 
-    return true
-  }
+    return true;
+  };
 }
 
-module.exports = function (str, array) {
-  return R.filter(_makeFilterFunc(str), array)
-}
+module.exports = function(str, array) {
+  return _.filter(array, _makeFilterFunc(str));
+};
