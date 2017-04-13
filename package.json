@@ -6,7 +6,7 @@
   "scripts": {
     "precommit": "lint-staged",
     "install": "nearleyc grammar.ne -o grammar.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha -r should"
   },
   "keywords": [],
   "author": "",
@@ -19,7 +19,9 @@
   "devDependencies": {
     "husky": "^0.13.3",
     "lint-staged": "^3.4.0",
-    "prettier": "^0.22.0"
+    "mocha": "^3.2.0",
+    "prettier": "^0.22.0",
+    "should": "^11.2.1"
   },
   "lint-staged": {
     "*.js": [

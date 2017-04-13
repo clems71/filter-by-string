@@ -11,7 +11,9 @@ Query -> SubQuery                                 {% function(d) { return [d[0]]
        | Query __ ("and" | "&" | "+") __ SubQuery {% function(d) { return d[0].concat(d[4]) } %}
 
 SubQuery -> Field ((__ "is" __) | (_ "=" _)) Elem {% function(d) { return { type: 'eq', key: d[0], val: d[2] } } %}
-          | Field __ "in" __ List           {% function(d) { return { type: 'in', key: d[0], val: d[4] } } %}
+          | Field __ "in" __ List                 {% function(d) { return { type: 'in', key: d[0], val: d[4] } } %}
+          | Field __ "nin" __ List                {% function(d) { return { type: 'nin', key: d[0], val: d[4] } } %}
+          | Field __ "!=" __ Elem                 {% function(d) { return { type: 'neq', key: d[0], val: d[4] } } %}
 
 List -> [\[(] ElemList:? [\])] {% function(d) { return d[1] || [] } %}
 

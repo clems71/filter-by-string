@@ -29,8 +29,19 @@ function _makeFilterFunc(str) {
           if (!_eq(condition.val, xValStr)) return false;
           break;
 
+        case 'neq':
+          if (_eq(condition.val, xValStr)) return false;
+          break;
+
         case 'in':
           if (!_in(condition.val, xValStr)) return false;
+          break;
+
+        case 'nin':
+          if (_in(condition.val, xValStr)) return false;
+          break;
+
+        default:
           break;
       }
     }
