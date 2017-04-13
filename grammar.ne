@@ -18,7 +18,7 @@ List -> [\[(] ElemList:? [\])] {% function(d) { return d[1] || [] } %}
 ElemList -> ElemList ListSep Elem {% function(d) { return d[0].concat(d[2]) } %}
           | Elem                  {% function(d) { return [d[0]] } %}
 
-Field -> [a-zA-Z0-9_$]:+ {% function(d) { return d[0].join('') } %}
+Field -> [a-zA-Z0-9_\.-$]:+ {% function(d) { return d[0].join('') } %}
 
 Elem -> [a-zA-Z0-9_$*]:+ {% function(d) {
   const x = d[0].join('')
