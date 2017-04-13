@@ -13,6 +13,8 @@ function _in (patterns, str) {
 }
 
 function _makeFilterFunc (str) {
+  if (!str) return R.T
+
   const parser = new nearley.Parser(grammar.ParserRules, grammar.ParserStart)
   parser.feed(str)
 
